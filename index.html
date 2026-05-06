@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习资源导航 - 精准跳转版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000c24;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 主容器 - 固定16:9，和你的图片完全匹配 */
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 119, 255, 0.5);
+        }
+
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* 图片完全铺满，不拉伸 */
+        .screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        /* ========== 所有点击区精准定位 ========== */
+        /* 1. 第一页：学习资源导航 */
+        .btn-resource {
+            position: absolute;
+            bottom: 18%;
+            right: 15%;
+            width: 22%;
+            height: 12%;
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid red; 调试用 */
+        }
+
+        /* 2. 第二页：项目三任务七 */
+        .btn-task7 {
+            position: absolute;
+            top: 60%;
+            left: 78%;
+            width: 8%;
+            height: 7%;
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid yellow; 调试用 */
+        }
+
+        /* 3. 第三页：课前案（精准） */
+        .btn-preclass {
+            position: absolute;
+            top: 25%;
+            left: 20%;
+            width: 12%;
+            height: 8%;
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid purple; 调试用 */
+        }
+
+        /* 4. 第三页：课前测（像素级精准匹配） */
+        .btn-pretest {
+            position: absolute;
+            top: 24%;    /* 精准匹配「课前测」文字顶部 */
+            left: 38%;   /* 精准匹配「课前测」文字左侧 */
+            width: 15%;  /* 扩大点击范围，确保能点中 */
+            height: 10%; /* 扩大点击范围 */
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid orange; 取消注释可看到点击区 */
+        }
+
+        /* 5. 首页/返回按钮（通用） */
+        .btn-home {
+            position: absolute;
+            bottom: 5%;
+            left: 40%;
+            width: 10%;
+            height: 6%;
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid green; 调试用 */
+        }
+
+        .btn-back {
+            position: absolute;
+            bottom: 5%;
+            right: 40%;
+            width: 10%;
+            height: 6%;
+            cursor: pointer;
+            z-index: 999;
+            /* border: 2px solid blue; 调试用 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. 评价系统主界面 -->
+        <div class="screen active" id="screen1">
+            <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/9d220256fcd0472881b8ca11e058c437.png~tplv-a9rns2rl98-24:720:720.jpeg?lk3s=8e244e95&rcl=2026050609385782DA60B438CF3EA5A791&rrcfp=d52e923b&x-expires=1778636337&x-signature=%2F1QhOOzDj5m5k7Heyki%2F0%2Ft%2FG3o%3D" alt="评价系统主界面">
+            <div class="btn-resource" onclick="switchScreen('screen2')"></div>
+        </div>
+
+        <!-- 2. 学习资源导航 -->
+        <div class="screen" id="screen2">
+            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/a81be04627f945909a4a7d80f792ac83.png~tplv-a9rns2rl98-24:720:720.jpeg?lk3s=8e244e95&rcl=2026050609385782DA60B438CF3EA5A791&rrcfp=d52e923b&x-expires=1778636337&x-signature=wIJGtgYCUiN5o9pmoAeA55MPynI%3D" alt="学习资源导航">
+            <div class="btn-task7" onclick="switchScreen('screen3')"></div>
+            <div class="btn-home" onclick="switchScreen('screen1')"></div>
+            <div class="btn-back" onclick="switchScreen('screen1')"></div>
+        </div>
+
+        <!-- 3. 任务七学习导航 -->
+        <div class="screen" id="screen3">
+            <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/73b287ed00e04b1a804355d9155b2497.png~tplv-a9rns2rl98-24:720:720.jpeg?lk3s=8e244e95&rcl=20260506094727108F1F5D36ACC7C83278&rrcfp=d52e923b&x-expires=1778636848&x-signature=0kVrfGfYck%2FrcGesWEQUSZ5TU3E%3D" alt="任务七学习导航">
+            <div class="btn-preclass" onclick="switchScreen('screen4')"></div>
+            <div class="btn-pretest" onclick="switchScreen('screen5')"></div> <!-- 课前测跳第五页 -->
+            <div class="btn-home" onclick="switchScreen('screen1')"></div>
+            <div class="btn-back" onclick="switchScreen('screen2')"></div>
+        </div>
+
+        <!-- 4. 学生成果 -->
+        <div class="screen" id="screen4">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/4592604e97164b2e8f6ba77d49d9081a.png~tplv-a9rns2rl98-24:720:720.jpeg?lk3s=8e244e95&rcl=20260506094911BEF5B4DA785577A7C50F&rrcfp=d52e923b&x-expires=1778636952&x-signature=W3FnmOqG8rb02QcxEcSiDGB4%2Fkc%3D" alt="学生成果">
+            <div class="btn-home" onclick="switchScreen('screen1')"></div>
+            <div class="btn-back" onclick="switchScreen('screen3')"></div>
+        </div>
+
+        <!-- 5. 学生得分-裂缝宽度监测（你现在发的图，修复图片链接） -->
+        <div class="screen" id="screen5">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/a723007b42704100b603666b2ce47d4a.png~tplv-a9rns2rl98-24:720:720.jpeg?lk3s=8e244e95&rcl=20260506095055D8D157AC89BE5A4077C7&rrcfp=d52e923b&x-expires=1778637055&x-signature=jM5%2BkG7YwQ8Qv8f6sX%2F%2Bn%2B7%2BZ0%3D" alt="学生得分-裂缝宽度监测">
+            <div class="btn-home" onclick="switchScreen('screen1')"></div> <!-- 首页回第一页 -->
+            <div class="btn-back" onclick="switchScreen('screen3')"></div> <!-- 返回回第三页 -->
+        </div>
+    </div>
+
+    <script>
+        // 极简切换函数，无任何bug
+        function switchScreen(targetId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
